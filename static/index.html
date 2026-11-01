@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Real-time sign language detection and translation using your webcam." />
+  <title>Real-Time Sign Language Detection &amp; Translation</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <h1>Real-Time Sign Language Detection &amp; Translation</h1>
+    <p class="tagline">Detect trained static gestures with your webcam and build a sentence.</p>
+  </header>
+
+  <main id="main">
+    <section class="status-bar" aria-live="polite">
+      <span id="model-status" class="status-chip status-unknown" role="status">Model: checking…</span>
+      <span id="connection-status" class="status-chip status-unknown" role="status">Connection: connecting…</span>
+      <span id="privacy-badge" class="status-chip status-ok" role="status">Privacy: local, in-memory only</span>
+    </section>
+
+    <section class="camera-panel" aria-label="Camera feed">
+      <div class="video-wrap">
+        <video id="video" autoplay playsinline muted hidden></video>
+        <canvas id="annotated" width="640" height="480" aria-label="Annotated camera feed"></canvas>
+        <div id="camera-empty" class="camera-empty">
+          <p>Start the camera to begin recognition.</p>
+        </div>
+      </div>
+      <div class="camera-controls">
+        <button id="start-btn" class="btn btn-primary" type="button">Start Camera</button>
+        <button id="stop-btn" class="btn" type="button" disabled>Stop Camera</button>
+        <span id="fps" class="fps" aria-hidden="true">FPS: —</span>
+      </div>
+      <p id="camera-error" class="error-message" role="alert" hidden></p>
+    </section>
+
+    <section class="results-grid" aria-label="Recognition results">
+      <div class="card prediction-card">
+        <h2>Current Prediction</h2>
+        <output id="prediction-label" class="prediction-label" aria-live="polite">—</output>
+        <output id="prediction-confidence" class="prediction-confidence" aria-live="polite"></output>
+        <div class="confidence-bar" aria-hidden="true">
+          <div id="confidence-fill" class="confidence-fill"></div>
+        </div>
+      </div>
+
+      <div class="card sentence-card">
+        <h2>Recognized Sentence</h2>
+        <output id="sentence" class="sentence" aria-live="polite" aria-label="Recognized sentence"></output>
+        <div class="sentence-controls">
+          <button id="add-btn" class="btn btn-primary" type="button" disabled>Add Sign</button>
+          <button id="space-btn" class="btn" type="button">Space</button>
+          <button id="delete-btn" class="btn" type="button" aria-label="Delete last token">Delete</button>
+          <button id="clear-btn" class="btn" type="button">Clear</button>
+        </div>
+        <div class="speak-controls">
+          <button id="speak-btn" class="btn" type="button">Speak</button>
+          <button id="cancel-speak-btn" class="btn" type="button">Stop</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card help-card" aria-label="Instructions and help">
+      <h2>How to Use</h2>
+      <ol>
+        <li>Press <strong>Start Camera</strong> and allow camera access.</li>
+        <li>Show a trained gesture (e.g. from your collected vocabulary).</li>
+        <li>Wait for the <strong>current prediction</strong> to stabilize.</li>
+        <li>Press <strong>Add Sign</strong> (or the keyboard shortcut <kbd>A</kbd>) to append it to the sentence.</li>
+        <li>Use <strong>Space</strong>, <strong>Delete</strong>, and <strong>Clear</strong> to edit.</li>
+        <li>Press <strong>Speak</strong> to hear the sentence aloud (browser voice).</li>
+      </ol>
+      <table class="shortcut-table">
+        <caption class="visually-hidden">Keyboard shortcuts</caption>
+        <thead>
+          <tr><th scope="col">Key</th><th scope="col">Action</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><kbd>A</kbd></td><td>Add current sign to the sentence</td></tr>
+          <tr><td><kbd>Space</kbd></td><td>Insert a space between words</td></tr>
+          <tr><td><kbd>Backspace</kbd></td><td>Delete the last token</td></tr>
+          <tr><td><kbd>Esc</kbd></td><td>Clear the sentence</td></tr>
+        </tbody>
+      </table>
+      <p class="privacy-note">
+        <strong>Privacy:</strong> camera input is processed <em>live for sign
+        recognition only</em> and is <em>not intentionally stored</em> during
+        normal inference. Frames are never sent outside your computer (this app,
+        including classification, runs locally).
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      Recognizes only gestures included in the trained vocabulary. This is a
+      research/educational prototype, not complete sign-language interpretation.
+    </p>
+  </footer>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

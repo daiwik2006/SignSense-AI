@@ -1,0 +1,10 @@
+              precision    recall  f1-score   support
+
+        FIST       1.00      1.00      1.00        28
+   OPEN_HAND       1.00      1.00      1.00        37
+       PEACE       1.00      1.00      1.00        30
+   THUMBS_UP       1.00      1.00      1.00        25
+
+    accuracy                           1.00       120
+   macro avg       1.00      1.00      1.00       120
+weighted avg       1.00      1.00      1.00       120

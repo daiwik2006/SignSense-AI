@@ -1,0 +1,1 @@
+"""Video capture utilities shared across scripts and the application."""
